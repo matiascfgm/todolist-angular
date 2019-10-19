@@ -1,13 +1,16 @@
 <div class="container mt-5">
-    <!-- <form (ngSubmit)="addTask(taskName)"> -->
-        <!-- <input type="text" placeholder="New task..." name="taskName" class="form-control" [(ngModel)]="taskName"> -->
-        <!-- <button class="btn btn-primary mt-3" type="submit">Add Task <i class="fas fa-plus"></i></button> -->
-    <!-- </form> -->
+    <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="form-group">
+                <input type="text" placeholder="New task..." formControlName="name" class="form-control">
+                <small *ngIf="form.get('name').touched && form.get('name').hasError('required')">this value is required</small>
+        </div>
+        <button class="btn btn-primary mt-3" type="submit">Add Task <i class="fas fa-plus"></i></button>
+    </form>
 </div>
 
 <div class="container">
      <app-task
-        *ngFor="let task of taskService.tasks"
+        *ngFor="let task of (taskService.tasks$ | async)"
         [task]="task"
     ></app-task>
 </div>

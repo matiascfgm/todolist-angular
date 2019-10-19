@@ -1,21 +1,24 @@
+<ng-container *ngIf="(taskService.tasks$ | async).length">
+
     <div class="container mt-5">
         <app-task [task]="task"></app-task>
-        <form [formGroup]="form" (ngSubmit)="save()">
-            <div class="container">
-                <label>name</label>
-                <input type="text" formControlName="name" class="form-control">
-                <span *ngIf="form.get('name').hasError('required')">please enter something</span>
-                <span [class.error]="hasMaxLength('name')">{{ form.get('name').value.length }}/20</span>
-            </div>
-            <div class="container">
-                <label>done</label>
-                <input type="checkbox" class="ml-3" formControlName="done">
-            </div>
-            <div class="container">
-                <label>description</label>
-                <input type="text" class="form-control" formControlName="description">
-            </div>
-
-            <button class="btn btn-success" type="submit">Save</button>
-        </form>
-    </div>
+    <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="container">
+            <label>name</label>
+            <input type="text" formControlName="name" class="form-control">
+            <span *ngIf="form.get('name').hasError('required')">please enter something</span>
+            <span [class.error]="hasMaxLength('name')">{{ form.get('name').value.length }}/20</span>
+        </div>
+        <div class="container">
+            <label>done</label>
+            <input type="checkbox" class="ml-3" formControlName="done">
+        </div>
+        <div class="container">
+            <label>description</label>
+            <input type="text" class="form-control" formControlName="description">
+        </div>
+        
+        <button class="btn btn-success" type="submit">Save</button>
+    </form>
+</div>
+</ng-container>
