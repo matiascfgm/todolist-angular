@@ -1,0 +1,16 @@
+<div
+    class="alert mt-5"
+    [class.alert-warning]="!task.done"
+    [class.alert-success]="task.done"
+>
+    <span class="task-name" [class.done]="task.done">
+        #{{task.id}} - {{task.name}}
+        <small *ngIf="task.description">{{ task.description }}</small>
+    </span>
+    <div class="float-right" (click)="toggleTask(task)">
+            <i class="fas fa-check"></i>                    
+    </div>
+    <a class="float-right mx-5" [routerLink]="'/edit/' + task.id">
+        <i class="fas fa-pencil-alt"></i>                    
+    </a>
+</div>

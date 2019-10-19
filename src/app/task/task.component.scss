@@ -1,0 +1,24 @@
+a {
+    color: inherit;
+}
+
+.done {
+    text-decoration: line-through;
+}
+
+// snippet (en scss)
+%common-styles{
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.alert{
+    @extend %common-styles;
+}
+
+i {
+    @extend %common-styles;
+    &:hover{
+        transform: scale(1.5);
+    }
+}

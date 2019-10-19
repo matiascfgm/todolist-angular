@@ -1,0 +1,14 @@
+<div class="container mt-5">
+    <!-- <form (ngSubmit)="addTask(taskName)"> -->
+        <!-- <input type="text" placeholder="New task..." name="taskName" class="form-control" [(ngModel)]="taskName"> -->
+        <!-- <button class="btn btn-primary mt-3" type="submit">Add Task <i class="fas fa-plus"></i></button> -->
+    <!-- </form> -->
+</div>
+
+<div class="container">
+
+     <app-task
+        *ngFor="let task of taskService.tasks"
+        [task]="task"
+    ></app-task>
+</div>
