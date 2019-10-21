@@ -1,24 +1,37 @@
 a {
-    color: inherit;
+  color: inherit;
 }
 
 .done {
-    text-decoration: line-through;
+  text-decoration: line-through;
 }
 
 // snippet (en scss)
-%common-styles{
-    transition: 0.5s;
-    cursor: pointer;
+%common-styles {
+  transition: 0.5s;
 }
 
-.alert{
-    @extend %common-styles;
+.alert {
+  @extend %common-styles;
 }
 
 i {
-    @extend %common-styles;
-    &:hover{
-        transform: scale(1.5);
+  @extend %common-styles;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.5);
+  }
+}
+button {
+  background-color: transparent;
+  border: none;
+
+  &[disabled] {
+    i {
+      cursor: not-allowed;
+      &:hover{
+          transform: none;
+      }
     }
+  }
 }

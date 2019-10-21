@@ -1,16 +1,17 @@
-<div
-    class="alert mt-5"
-    [class.alert-warning]="!task.done"
-    [class.alert-success]="task.done"
->
+<div class="alert mt-5" [class.alert-warning]="!task.done" [class.alert-success]="task.done">
     <span class="task-name" [class.done]="task.done">
-        #{{task.id}} - {{task.name}}
-        <small *ngIf="task.description">{{ task.description }}</small>
+        #{{task.name}}
+        <ng-container *ngIf="task.description">
+            - <small>{{ task.description }}</small>
+        </ng-container>
     </span>
-    <div class="float-right" (click)="toggleTask(task)">
-            <i class="fas fa-check"></i>                    
-    </div>
-    <a class="float-right mx-5" [routerLink]="'/edit/' + task.id">
-        <i class="fas fa-pencil-alt"></i>                    
-    </a>
+    <button class="float-right" (click)="toggleTask(task)" [disabled]="disabled">
+        <i class="fas fa-check"></i>
+    </button>
+    <button class="float-right mx-5" (click)="removeTask(task)" [disabled]="disabled">
+        <i class="fas fa-trash"></i>
+    </button>
+    <button class="float-right" [routerLink]="'/edit/' + task.id" [disabled]="disabled">
+        <i class="fas fa-pencil-alt"></i>
+    </button>
 </div>

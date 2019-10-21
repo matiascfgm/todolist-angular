@@ -14,12 +14,19 @@ export class TaskComponent {
   @Input() // permite que 'task' se pueda definir desde FUERA
   public task: Task;
 
-  public constructor() {
+  @Input()
+  public disabled: boolean = false;
+
+  public constructor(private taskService: TaskService) {
   }
 
   public toggleTask(task: Task){
     task.done = !task.done;
-    // force angular to reload the component
+
+    this.taskService.updateTask(task);
   }
 
+  public removeTask(task: Task){
+    this.taskService.deleteTask(task);
+  }
 }

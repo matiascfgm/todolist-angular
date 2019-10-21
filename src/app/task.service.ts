@@ -1,7 +1,9 @@
 import { Injectable, ChangeDetectorRef } from '@angular/core';
 import { Task } from './interfaces/task';
 import { of, Observable, BehaviorSubject } from 'rxjs';
-import { ServerService } from './server.service';
+import { map } from 'rxjs/operators';
+import { AngularFirestore } from '@angular/fire/firestore';
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,7 @@ export class TaskService {
 
   private static nextId: number = 4;
 
-  public constructor(private http: ServerService) {
+  public constructor(private db: AngularFirestore) {
     this.getAllTasks().subscribe((tasks) => {
       this.tasks$.next(tasks);
     })
@@ -26,24 +28,32 @@ export class TaskService {
     return TaskService.nextId++;
   }
 
-  public updateTask(taskId: number, newTaskValues: Task) {
-    const task = this.tasks.find((task) => task.id === taskId)
-    task.name = newTaskValues.name;
-    task.description = newTaskValues.description;
-    task.done = newTaskValues.done;
+  public updateTask(newTaskValues: Task) {
+    this.db.collection('task').doc(newTaskValues.id).update(newTaskValues);
+  }
+
+  public getById(id: string): Observable<Task> {
+    return this.db.collection<Task>('task').doc(id).snapshotChanges().pipe(
+      map( action => {
+          return {id: action.payload.id, ...action.payload.data()} as Task
+    }))
   }
 
   public addTask(task: Task) {
-    // save to server....
-    return this.http.push('http://myserver.com/save-todo', {params: task}); // this is called a 'promise'. You can subscribe to promises
-  }
+    return this.db.collection('task').add(task);
+    }
 
-  public delete(task: Task) {
-    // save to server....
-    return this.http.push('http://myserver.com/save-todo', {params: task.id}); // this is called a 'promise'. You can subscribe to promises
-  }
+  public deleteTask(task: Task) {
+    console.log(task);
+    return this.db.collection('task').doc(task.id).delete();
+     }
 
   public getAllTasks(): Observable<Task[]> {
-    return this.http.get('http://myserver.com/get-all-tasks');
+    return this.db.collection<Task>('task').snapshotChanges().pipe(
+      map( actions => {
+        return actions.map(action => {
+          return {id: action.payload.doc.id, ...action.payload.doc.data()}
+      })
+    }))
   }
 }
