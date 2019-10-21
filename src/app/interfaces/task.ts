@@ -22,6 +22,8 @@ export interface Task {
      */
     done: boolean;
 
-    // not in use
+    /**
+     * @var progress: The progress of the task
+     */
     progress?: TaskState
 }

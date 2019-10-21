@@ -2,7 +2,6 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
-import { filter } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 
 import { TaskService } from '../task.service';
