@@ -7,7 +7,14 @@ export interface Task {
      */
     id: string;
 
+    /**
+     * @var name the name of the task.
+     */
     name: string;
+
+    /**
+     * @var description (optional) a description for the task.
+     */
     description?: string;
     
     /**
