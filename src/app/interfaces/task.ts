@@ -10,6 +10,9 @@ export interface Task {
     name: string;
     description?: string;
     
+    /**
+     * @var done True if the task is done
+     */
     done: boolean;
 
     // not in use
